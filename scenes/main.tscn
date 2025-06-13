@@ -1,0 +1,144 @@
+[gd_scene load_steps=12 format=3 uid="uid://dgmuq33g7exv7"]
+
+[ext_resource type="Script" uid="uid://duvsyvkckffcu" path="res://scripts/card_manager.gd" id="1_0xm2m"]
+[ext_resource type="Script" uid="uid://c30pf5tnyygoo" path="res://scripts/room.gd" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://dcw2a6226tx7c" path="res://scenes/cardSlot.tscn" id="3_sugp2"]
+[ext_resource type="Texture2D" uid="uid://cqtins24bysfg" path="res://assets/buttons/Pixel Art Buttons.png" id="4_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://bjlxfgbronlj2" path="res://assets/cards/back.png" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://ch7a45411hrg5" path="res://scripts/deck.gd" id="5_tefeu"]
+[ext_resource type="Script" uid="uid://be1viw7d18lun" path="res://scripts/input_manager.gd" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://cv6xexsyuugvv" path="res://scripts/player.gd" id="8_tipki"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
+size = Vector2(51.0204, 46.3262)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(140, 186)
+
+[sub_resource type="GDScript" id="GDScript_o6xl0"]
+
+[node name="Main" type="Node2D"]
+
+[node name="cardManager" type="Node2D" parent="."]
+script = ExtResource("1_0xm2m")
+
+[node name="DiscardSlot" parent="." instance=ExtResource("3_sugp2")]
+position = Vector2(1520, 400)
+
+[node name="MiddleSlot" parent="." instance=ExtResource("3_sugp2")]
+position = Vector2(960, 854)
+
+[node name="Room" type="Node2D" parent="."]
+script = ExtResource("3_jyhfs")
+
+[node name="Labels" type="Node2D" parent="."]
+
+[node name="Dungeon" type="Label" parent="Labels"]
+offset_left = 255.0
+offset_top = 170.0
+offset_right = 556.0
+offset_bottom = 316.0
+text = "Dungeon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Health" type="Label" parent="Labels"]
+offset_left = 280.0
+offset_top = 684.0
+offset_right = 521.0
+offset_bottom = 797.0
+text = "Health"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Weapon" type="Label" parent="Labels"]
+offset_left = 843.0
+offset_top = 645.0
+offset_right = 1084.0
+offset_bottom = 758.0
+text = "Weapon"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Room" type="Label" parent="Labels"]
+offset_left = 818.0
+offset_top = 130.0
+offset_right = 1059.0
+offset_bottom = 243.0
+text = "Room"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Discard" type="Label" parent="Labels"]
+offset_left = 1395.0
+offset_top = 191.0
+offset_right = 1636.0
+offset_bottom = 304.0
+text = "Discard"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NextRoomButton" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Area2D" type="Area2D" parent="NextRoomButton"]
+position = Vector2(1508, 846)
+scale = Vector2(2.94, 3.06522)
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NextRoomButton/Area2D"]
+shape = SubResource("RectangleShape2D_tbgi4")
+
+[node name="Sprite2D" type="Sprite2D" parent="NextRoomButton"]
+modulate = Color(0.379584, 0.662544, 0.604281, 0.6)
+position = Vector2(1508, 846)
+scale = Vector2(2.94, 3.06522)
+texture = ExtResource("4_jyhfs")
+region_enabled = true
+region_rect = Rect2(73, 198, 50, 46)
+
+[node name="Deck" type="Node2D" parent="."]
+position = Vector2(404, 400)
+script = ExtResource("5_tefeu")
+
+[node name="Sprite2D" type="Sprite2D" parent="Deck"]
+z_index = -5
+texture = ExtResource("5_tbgi4")
+
+[node name="Area2D" type="Area2D" parent="Deck"]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Deck/Area2D"]
+shape = SubResource("RectangleShape2D_jyhfs")
+disabled = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Deck"]
+modulate = Color(0, 0, 0, 1)
+offset_left = -42.0
+offset_top = 95.0
+offset_right = 12.0
+offset_bottom = 119.0
+scale = Vector2(2, 2)
+text = "52/52"
+
+[node name="inputManager" type="Node2D" parent="."]
+script = ExtResource("7_o6xl0")
+
+[node name="DeckManager" type="Node2D" parent="."]
+script = SubResource("GDScript_o6xl0")
+
+[node name="Player" type="Node2D" parent="."]
+script = ExtResource("8_tipki")
+
+[node name="Health" type="RichTextLabel" parent="Player"]
+offset_left = 365.0
+offset_top = 766.0
+offset_right = 401.0
+offset_bottom = 802.0
+scale = Vector2(4, 4)
+text = "20"
+
+[node name="Discard" type="Node2D" parent="."]
